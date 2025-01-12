@@ -17,6 +17,14 @@ export interface FlightsInterface {
   entityId: string;
 }
 
+export interface AirportInterface {
+  entityId: string;
+  skyId: string;
+  presentation: {
+    title: string;
+  };
+}
+
 export interface FlightCalendarInterface {
   dateFrom: string;
   dateTo: string;
