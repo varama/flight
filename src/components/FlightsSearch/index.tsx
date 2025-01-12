@@ -24,6 +24,7 @@ interface FlightsSearchProps {
     flightTo: FlightsInterface,
     flightCalendar: FlightCalendarInterface
   ) => void;
+  errors: Array<number>;
   debounceDelay: number;
   passangersDefaultData: PassangersInterface;
 }
@@ -31,6 +32,7 @@ interface FlightsSearchProps {
 const FlightsSearch: React.FC<FlightsSearchProps> = ({
   fetchAirport,
   fetchFlights,
+  errors,
   debounceDelay,
   passangersDefaultData,
 }) => {
@@ -91,9 +93,12 @@ const FlightsSearch: React.FC<FlightsSearchProps> = ({
           }}
         />
       </div>
-      <div style={{ display: "flex", gap: 40 }}>
+      <div
+        style={{ display: "flex", gap: 30, justifyContent: "space-between" }}
+      >
         <FlightDirection
           value={{ from: flightFrom, to: flightTo }}
+          errors={errors}
           fromPlaceholder={"Where from?"}
           wherePlaceholder={"Where to?"}
           fetchAirport={fetchAirport}

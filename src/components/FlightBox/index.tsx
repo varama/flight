@@ -1,7 +1,9 @@
+import Errors from "components/Errors";
 import FlightsList from "components/FlightsList";
 import FlightsSearch from "components/FlightsSearch";
 import { useAsync } from "hooks/useAsync";
 import React from "react";
+import { createErrors } from "utils/createErrors";
 import { FLIGHTCLASSES, FLIGHTTYPES } from "utils/enums";
 import { getAirport, getFlights } from "utils/getFlights";
 import {
@@ -10,7 +12,16 @@ import {
   PassangersInterface,
 } from "utils/interfaces";
 const FlightBox = () => {
-  const { data: flights, isLoading, isError, error, run, reset } = useAsync();
+  const {
+    data: flights,
+    isLoading,
+    isIdle,
+    isError,
+    error,
+    run,
+    reset,
+  } = useAsync();
+  const [errors, setErrors] = React.useState<Array<number>>([]);
   const passangersData = {
     adults: {
       count: 1,
@@ -48,28 +59,41 @@ const FlightBox = () => {
           flightTo: FlightsInterface,
           flightCalendar: FlightCalendarInterface
         ) => {
-          run(
-            getFlights({
-              adults: passangers.adults.count,
-              childrens: passangers.children.count,
-              infants: passangers.infants.count,
-              cabinClass: flightClass.toLowerCase().split(" ").join("_"),
-              date: flightCalendar.dateFrom,
-              ...(trip === FLIGHTTYPES.ROUND && {
-                returnDate: flightCalendar.dateTo,
-              }),
-              originID: flightFrom.value,
-              originEntityID: flightFrom.entityId,
-              destinationID: flightTo.value,
-              destinationEntityID: flightTo.entityId,
-            })
-          );
+          const errorsList = createErrors({
+            trip,
+            flightFrom,
+            flightTo,
+            flightCalendar,
+          });
+          setErrors(errorsList);
+
+          if (errorsList.length === 0) {
+            run(
+              getFlights({
+                adults: passangers.adults.count,
+                childrens: passangers.children.count,
+                infants: passangers.infants.count,
+                cabinClass: flightClass.toLowerCase().split(" ").join("_"),
+                date: flightCalendar.dateFrom,
+                ...(trip === FLIGHTTYPES.ROUND && {
+                  returnDate: flightCalendar.dateTo,
+                }),
+                originID: flightFrom.value,
+                originEntityID: flightFrom.entityId,
+                destinationID: flightTo.value,
+                destinationEntityID: flightTo.entityId,
+              })
+            );
+          }
         }}
+        errors={errors}
         debounceDelay={200}
         passangersDefaultData={passangersData}
       />
+      <Errors errors={errors} />
       <FlightsList
         flights={flights}
+        isIdle={isIdle}
         loading={isLoading}
         isError={isError}
         error={error}

@@ -103,7 +103,14 @@ const Passangers: React.FC<PassangersProps> = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  <div>{passangerData.title}</div>
+                  <div>
+                    <span>{passangerData.title}</span>
+                    {passangerData.subtitle && (
+                      <div className={styles.subtitle}>
+                        <div>{passangerData.subtitle}</div>
+                      </div>
+                    )}
+                  </div>
                   <div className={styles.count}>
                     <button
                       className={
@@ -136,11 +143,6 @@ const Passangers: React.FC<PassangersProps> = ({
                     </button>
                   </div>
                 </div>
-                {passangerData.subtitle && (
-                  <div className={styles.subtitle}>
-                    <div>{passangerData.subtitle}</div>
-                  </div>
-                )}
               </div>
             );
           })}

@@ -1,0 +1,13 @@
+.wrapper {
+  max-width: 768px;
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
+    0 4px 8px 3px rgba(60, 64, 67, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

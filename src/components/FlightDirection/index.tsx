@@ -9,6 +9,7 @@ interface FlightDirectionProps {
   fromPlaceholder: string;
   wherePlaceholder: string;
   debounceDelay: number;
+  errors: Array<number>;
   fetchAirport: (query: string) => Promise<any>;
   onChange: (data: FlightsInterface, update: FLIGHTDIRECTION) => void;
 }
@@ -17,6 +18,7 @@ const FlightDirection: React.FC<FlightDirectionProps> = ({
   value,
   fromPlaceholder,
   wherePlaceholder,
+  errors,
   debounceDelay = 200,
   fetchAirport,
   onChange,
@@ -51,7 +53,9 @@ const FlightDirection: React.FC<FlightDirectionProps> = ({
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <Input
           placeholder={fromPlaceholder}
+          error={errors.indexOf(0) !== -1}
           value={from.name}
+          loading={fromIsLoading}
           options={fromOptions}
           onChange={({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
             setFrom({ name: target.value, value: "", entityId: "" });
@@ -81,7 +85,9 @@ const FlightDirection: React.FC<FlightDirectionProps> = ({
         </svg>
         <Input
           placeholder={wherePlaceholder}
+          error={errors.indexOf(1) !== -1}
           value={to.name}
+          loading={toIsLoading}
           options={toOptions}
           onChange={({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
             setTo({ name: target.value, value: "", entityId: "" });
@@ -96,7 +102,6 @@ const FlightDirection: React.FC<FlightDirectionProps> = ({
           }}
         />
       </div>
-      {(fromIsLoading || toIsLoading) && <div>Loading...</div>}
       {fromIsError && <div style={{ color: "red" }}>{fromError}</div>}
       {toIsError && <div style={{ color: "red" }}>{toError}</div>}
     </div>

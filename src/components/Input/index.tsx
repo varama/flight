@@ -17,6 +17,8 @@ interface InputProps
   extends React.HTMLAttributes<HTMLTextAreaElement | HTMLInputElement> {
   placeholder: string;
   value: string;
+  error: boolean;
+  loading: boolean;
   options: Array<any>;
   onOptionSelect: (airport: FlightsInterface) => void;
 }
@@ -24,6 +26,8 @@ interface InputProps
 const Input = ({
   placeholder,
   value,
+  error,
+  loading,
   options,
   onChange,
   onOptionSelect,
@@ -36,6 +40,7 @@ const Input = ({
   return (
     <div ref={directionRef}>
       <TextField
+        error={error}
         autoComplete="off"
         placeholder={placeholder}
         value={value}
@@ -76,6 +81,9 @@ const Input = ({
           </div>
         </Grid2>
       )}
+      <div style={{ height: 30, position: "absolute" }}>
+        {loading ? "Loading..." : ""}
+      </div>
     </div>
   );
 };
