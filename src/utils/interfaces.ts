@@ -22,6 +22,11 @@ export interface FlightCalendarInterface {
   dateTo: string;
 }
 
+export interface FlightDirectionInterface {
+  from: FlightsInterface;
+  to: FlightsInterface;
+}
+
 export interface GetFlightsProps {
   originID: string;
   destinationID: string;

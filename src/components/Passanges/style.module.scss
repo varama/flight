@@ -1,0 +1,89 @@
+.title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    padding: 10px;
+    &:hover {
+      border-radius: 5px;
+      background-color: #f1f3f4;
+    }
+  }
+  
+  .dropdown {
+    display: flex;
+    z-index: 999999;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+      0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+    cursor: default;
+    & > div {
+      padding: 10px;
+      padding-right: 15px;
+      display: flex;
+      gap: 10px;
+      &:hover::not(.error) {
+        background-color: #f1f3f4;
+      }
+    }
+  }
+  
+  .subtitle {
+    color: #656565;
+    font-size: 13px;
+  }
+  
+  .error {
+    color: #d93025;
+    cursor: default !important;
+    max-width: 150px;
+    font-size: 14px;
+  }
+  
+  .count {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    color: #656565;
+    cursor: default;
+    & button {
+      cursor: pointer;
+      background-color: #ddebfd;
+      border: 0;
+      outline: 0;
+      color: #1967d2;
+      width: 30px;
+      height: 30px;
+      display: block;
+      &:hover {
+        background-color: #cbe2ff;
+      }
+      &.disabled {
+        cursor: default;
+        background-color: #e7e8e8;
+        color: #3c404361;
+      }
+    }
+  }
+  
+  .bottomButtons {
+    justify-content: flex-end;
+    & button {
+      background: transparent;
+      border: 0;
+      outline: 0;
+      padding: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+      border-radius: 15px;
+      color: #1a73e8;
+      cursor: pointer;
+      &:hover {
+        background-color: #f6fafe;
+      }
+    }
+  }
+  
